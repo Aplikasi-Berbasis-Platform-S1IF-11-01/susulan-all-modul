@@ -5,7 +5,7 @@
   <h3>MODUL 11, 12 & 13 <br> Laravel: Migration, Seeder, CRUD & Authentication</h3>
   <br />
   <br />
-  <img src="assets/logo.png" alt="Logo" width="300">
+  <img src="assets/Logo.png" alt="Logo" width="300">
   <br />
   <br />
   <br />
