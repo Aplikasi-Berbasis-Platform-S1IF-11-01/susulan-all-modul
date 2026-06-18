@@ -1,22 +1,33 @@
-# LAPORAN PRAKTIKUM
+<div align="center">
 
-# APLIKASI BERBASIS PLATFORM
+## LAPORAN PRAKTIKUM
+## APLIKASI BERBASIS PLATFORM
 
-## MODUL 7
+### MODUL 7
+### MOBILE
 
-## MOBILE
+<br><br>
 
-**Disusun oleh:**  
-**Syafanida Khakiki**  
+<img src="aset/logo.png" width="150">
+
+<br><br>
+
+**Disusun oleh:**
+**Syafanida Khakiki**
 **2311102005**
 
-**KELAS PS1IF-11-REG01**  
+<br>
+
+**KELAS PS1IF-11-REG01**
 **Dosen: Dimas Fanny Hebrasianto Permadi, S.ST., M.Kom**
 
-## PROGRAM STUDI S1 TEKNIK INFORMATIKA
-## FAKULTAS INFORMATIKA
-## UNIVERSITAS TELKOM PURWOKERTO
-## 2026
+<br><br>
+
+## PROGRAM STUDI S1 TEKNIK INFORMATIKA <br> FAKULTAS INFORMATIKA <br> UNIVERSITAS TELKOM PURWOKERTO <br> 2026 <br><br>
+
+</div>
+
+---
 
 ---
 
