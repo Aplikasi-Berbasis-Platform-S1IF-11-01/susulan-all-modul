@@ -1,0 +1,11 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "nama": "Headphone",
+      "kategori": "Aksesoris",
+      "harga": 16000
+    }
+  ],
+  "nextId": 2
+}
