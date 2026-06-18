@@ -1,29 +1,32 @@
-# LAPORAN PRAKTIKUM APLIKASI BERBASIS PLATFORM
 
-## MODUL 6
+<div align="center">
 
-## WEB (EXPRESS JS + EJS + BOOTSTRAP SEDERHANA)
+## LAPORAN PRAKTIKUM
+## APLIKASI BERBASIS PLATFORM
 
----
+### MODUL 6
+### WEB
 
-**Disusun oleh:**  
-**Syafanida Khakiki**  
+<br><br>
+
+<img src="aset/logo.png" width="150">
+
+<br><br>
+
+**Disusun oleh:**
+**Syafanida Khakiki**
 **2311102005**
 
----
+<br>
 
-**KELAS PS1IF-11-REG01**  
+**KELAS PS1IF-11-REG01**
 **Dosen: Dimas Fanny Hebrasianto Permadi, S.ST., M.Kom**
 
----
+<br><br>
 
-## PROGRAM STUDI S1 TEKNIK INFORMATIKA
+## PROGRAM STUDI S1 TEKNIK INFORMATIKA <br> FAKULTAS INFORMATIKA <br> UNIVERSITAS TELKOM PURWOKERTO <br> 2026 <br><br>
 
-## FAKULTAS INFORMATIKA
-
-## UNIVERSITAS TELKOM PURWOKERTO
-
-## 2026
+</div>
 
 ---
 
