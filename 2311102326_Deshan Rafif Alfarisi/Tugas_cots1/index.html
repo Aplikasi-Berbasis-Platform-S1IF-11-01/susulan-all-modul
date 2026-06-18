@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistem Data Pesewaan Motor</title>
+  <meta name="description" content="Sistem manajemen data pesewaan motor dengan fitur CRUD, tabel interaktif, dan form input lengkap." />
+
+  <!-- Bootstrap 5 CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <!-- Bootstrap Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    rel="stylesheet"
+  />
+  <!-- DataTables CSS -->
+  <link
+    href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css"
+    rel="stylesheet"
+  />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNavbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <div class="brand-icon">
+          <i class="bi bi-motorcycle"></i>
+        </div>
+        <div>
+          <span class="brand-title">MotoRent</span>
+          <span class="brand-sub d-block">Management System</span>
+        </div>
+      </a>
+      <div class="ms-auto d-flex align-items-center gap-3">
+        <span class="badge-stat" id="totalBadge">
+          <i class="bi bi-collection-fill me-1"></i>
+          <span id="totalCount">0</span> Unit
+        </span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content text-center">
+        <div class="hero-icon-wrap">
+          <i class="bi bi-motorcycle"></i>
+        </div>
+        <h1 class="hero-title">Data Pesewaan Motor</h1>
+        <p class="hero-subtitle">Kelola inventaris dan data pesewaan motor dengan mudah &amp; efisien</p>
+        <div class="hero-stats d-flex justify-content-center gap-4 mt-4">
+          <div class="stat-card">
+            <div class="stat-number" id="statTotal">0</div>
+            <div class="stat-label">Total Unit</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="statAvailable">0</div>
+            <div class="stat-label">Tersedia</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="statRented">0</div>
+            <div class="stat-label">Disewa</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- Alert Container -->
+      <div id="alertContainer"></div>
+
+      <!-- Form Card -->
+      <div class="content-card mb-4" id="formCard">
+        <div class="card-header-custom">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-3">
+              <div class="icon-wrap">
+                <i class="bi bi-plus-circle-fill"></i>
+              </div>
+              <div>
+                <h2 class="section-title mb-0" id="formTitle">Tambah Data Motor</h2>
+                <p class="section-sub mb-0">Isi form berikut untuk menambahkan unit motor baru</p>
+              </div>
+            </div>
+            <button class="btn btn-outline-secondary btn-sm" id="btnCancelEdit" style="display:none;" onclick="cancelEdit()">
+              <i class="bi bi-x-circle me-1"></i>Batal Edit
+            </button>
+          </div>
+        </div>
+        <div class="card-body-custom">
+          <form id="motorForm" novalidate>
+            <input type="hidden" id="editId" value="" />
+            <div class="row g-3">
+              <!-- Nama Produk -->
+              <div class="col-md-6 col-lg-4">
+                <label for="namaProduk" class="form-label fw-semibold">
+                  <i class="bi bi-tag-fill text-primary me-1"></i>Nama Produk
+                </label>
+                <input
+                  type="text"
+                  class="form-control form-control-custom"
+                  id="namaProduk"
+                  placeholder="Contoh: Honda Beat 2023"
+                  required
+                />
+                <div class="invalid-feedback">Nama produk wajib diisi.</div>
+              </div>
+
+              <!-- Kategori -->
+              <div class="col-md-6 col-lg-4">
+                <label for="kategori" class="form-label fw-semibold">
+                  <i class="bi bi-grid-fill text-success me-1"></i>Kategori
+                </label>
+                <select class="form-select form-control-custom" id="kategori" required>
+                  <option value="" disabled selected>-- Pilih Kategori --</option>
+                  <option value="Matic">🛵 Matic</option>
+                  <option value="Manual">⚙️ Manual / Bebek</option>
+                  <option value="Sport">🏍️ Sport</option>
+                  <option value="Trail">🌲 Trail / Adventure</option>
+                  <option value="Cruiser">🤙 Cruiser / Besar</option>
+                </select>
+                <div class="invalid-feedback">Kategori wajib dipilih.</div>
+              </div>
+
+              <!-- Harga Sewa -->
+              <div class="col-md-6 col-lg-4">
+                <label for="harga" class="form-label fw-semibold">
+                  <i class="bi bi-currency-dollar text-warning me-1"></i>Harga Sewa / Hari
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text">Rp</span>
+                  <input
+                    type="number"
+                    class="form-control form-control-custom"
+                    id="harga"
+                    placeholder="75000"
+                    min="0"
+                    required
+                  />
+                  <div class="invalid-feedback">Harga sewa wajib diisi (angka positif).</div>
+                </div>
+              </div>
+
+              <!-- Stok / Jumlah -->
+              <div class="col-md-6 col-lg-4">
+                <label for="stok" class="form-label fw-semibold">
+                  <i class="bi bi-boxes text-info me-1"></i>Stok Unit
+                </label>
+                <input
+                  type="number"
+                  class="form-control form-control-custom"
+                  id="stok"
+                  placeholder="5"
+                  min="1"
+                  value="1"
+                  required
+                />
+                <div class="invalid-feedback">Stok minimal 1 unit.</div>
+              </div>
+
+              <!-- Status -->
+              <div class="col-md-6 col-lg-4">
+                <label for="status" class="form-label fw-semibold">
+                  <i class="bi bi-toggle-on text-danger me-1"></i>Status
+                </label>
+                <select class="form-select form-control-custom" id="status" required>
+                  <option value="Tersedia">✅ Tersedia</option>
+                  <option value="Disewa">🔴 Sedang Disewa</option>
+                  <option value="Perawatan">🔧 Dalam Perawatan</option>
+                </select>
+                <div class="invalid-feedback">Status wajib dipilih.</div>
+              </div>
+
+              <!-- Keterangan -->
+              <div class="col-md-6 col-lg-4">
+                <label for="keterangan" class="form-label fw-semibold">
+                  <i class="bi bi-card-text text-secondary me-1"></i>Keterangan
+                </label>
+                <input
+                  type="text"
+                  class="form-control form-control-custom"
+                  id="keterangan"
+                  placeholder="Warna, tahun, kondisi, dll."
+                />
+              </div>
+            </div>
+
+            <div class="d-flex gap-2 mt-4 justify-content-end">
+              <button type="button" class="btn btn-outline-secondary btn-custom" onclick="resetForm()">
+                <i class="bi bi-arrow-counterclockwise me-2"></i>Reset
+              </button>
+              <button type="submit" class="btn btn-primary btn-custom" id="btnSubmit">
+                <i class="bi bi-plus-circle me-2" id="btnIcon"></i>
+                <span id="btnText">Tambah Data</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Table Card -->
+      <div class="content-card">
+        <div class="card-header-custom">
+          <div class="d-flex align-items-center gap-3">
+            <div class="icon-wrap icon-wrap-success">
+              <i class="bi bi-table"></i>
+            </div>
+            <div>
+              <h2 class="section-title mb-0">Daftar Motor Sewaan</h2>
+              <p class="section-sub mb-0">Kelola semua data unit motor yang tersedia</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body-custom">
+          <div class="table-responsive">
+            <table id="motorTable" class="table table-hover align-middle" style="width:100%">
+              <thead>
+                <tr>
+                  <th class="th-no">No</th>
+                  <th>Nama Produk</th>
+                  <th>Kategori</th>
+                  <th>Harga / Hari</th>
+                  <th>Stok</th>
+                  <th>Status</th>
+                  <th>Keterangan</th>
+                  <th class="th-aksi">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="motorTableBody">
+                <!-- Data akan diisi oleh JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Modal Detail -->
+  <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title" id="detailModalLabel">
+            <i class="bi bi-info-circle-fill me-2"></i>Detail Motor
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="detailModalBody">
+          <!-- Content generated by JS -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Hapus Konfirmasi -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content modal-custom">
+        <div class="modal-header" style="background: linear-gradient(135deg, #dc3545, #c82333); color: white;">
+          <h5 class="modal-title" id="deleteModalLabel">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>Konfirmasi Hapus
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center py-4">
+          <div class="mb-3" style="font-size: 3rem;">🗑️</div>
+          <p class="mb-1 fw-semibold">Yakin ingin menghapus data ini?</p>
+          <p class="text-muted small mb-0" id="deleteModalName"></p>
+        </div>
+        <div class="modal-footer justify-content-center gap-2">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-danger" id="btnConfirmDelete">
+            <i class="bi bi-trash-fill me-1"></i>Hapus
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="container text-center">
+      <p class="mb-1">
+        <i class="bi bi-motorcycle me-2"></i>
+        <strong>MotoRent Management System</strong>
+      </p>
+      <p class="mb-0 small opacity-75">Sistem Manajemen Data Pesewaan Motor &copy; 2024</p>
+    </div>
+  </footer>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+</body>
+</html>

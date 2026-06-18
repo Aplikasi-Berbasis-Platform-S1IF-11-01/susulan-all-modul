@@ -1,0 +1,42 @@
+[
+  {
+    "id": "a9b1c2d3-4e5f-6a7b-8c9d-0e1f2a3b4c5d",
+    "name": "Kabel Rol 10 Meter",
+    "category": "Elektronik",
+    "quantity": 2,
+    "condition": "Baik",
+    "location": "Rak A-2",
+    "notes": "Kabel rol tebal warna hitam, kondisi normal.",
+    "createdAt": "2026-06-18T10:00:00.000Z"
+  },
+  {
+    "id": "b0c1d2e3-4f5a-6b7c-8d9e-0f1a2b3c4d5e",
+    "name": "Set Obeng Magnetik",
+    "category": "Perkakas",
+    "quantity": 1,
+    "condition": "Baik",
+    "location": "Box Plastik Biru",
+    "notes": "Isi 12 mata obeng presisi.",
+    "createdAt": "2026-06-18T10:05:00.000Z"
+  },
+  {
+    "id": "c1d2e3f4-5a6b-7c8d-9e0f-1a2b3c4d5e6f",
+    "name": "Lampu LED 15 Watt (Cadangan)",
+    "category": "Elektronik",
+    "quantity": 5,
+    "condition": "Baik",
+    "location": "Laci Lemari Kayu",
+    "notes": "Merek Philips, warna putih hangat (warm white).",
+    "createdAt": "2026-06-18T10:10:00.000Z"
+  },
+  {
+    "id": "d2e3f4a5-6b7c-8d9e-0f1a-2b3c4d5e6f7a",
+    "name": "Kipas Angin Portable",
+    "category": "Elektronik",
+    "quantity": 1,
+    "condition": "Rusak",
+    "location": "Sudut Rak B",
+    "notes": "Baterai kembung, perlu diservis atau diganti.",
+    "createdAt": "2026-06-18T10:15:00.000Z"
+  }
+]

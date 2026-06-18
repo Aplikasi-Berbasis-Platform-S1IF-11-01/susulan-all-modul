@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-earth sticky-top">
+  <div class="container">
+    <a class="navbar-brand navbar-brand-earth" href="/" id="brandLink">
+      <% if (typeof hasLogo !== 'undefined' && hasLogo) { %>
+        <img src="/assets/logo.png" alt="Logo" class="d-inline-block align-top">
+      <% } else { %>
+        <i class="fa-solid fa-warehouse"></i>
+      <% } %>
+      GudangKu
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto gap-2">
+        <li class="nav-item">
+          <a class="nav-link nav-link-earth <%= title.includes('Dashboard') ? 'active' : '' %>" href="/" id="navDashboard">
+            <i class="fa-solid fa-chart-pie me-1"></i> Dashboard
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-earth <%= title.includes('Tambah') || title.includes('Edit') ? 'active' : '' %>" href="/form" id="navForm">
+            <i class="fa-solid fa-circle-plus me-1"></i> Tambah Barang
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-earth <%= title.includes('Daftar') ? 'active' : '' %>" href="/table" id="navTable">
+            <i class="fa-solid fa-boxes-stacked me-1"></i> Daftar Barang
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

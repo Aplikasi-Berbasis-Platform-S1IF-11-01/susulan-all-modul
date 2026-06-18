@@ -1,0 +1,163 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar', { hasLogo: true }) %>
+
+<div class="page-header">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h1>Sistem Inventaris Gudang</h1>
+        <p>Kelola barang-barang di gudang rumah Anda dengan efisien dalam balutan nuansa Earth Tone hangat.</p>
+      </div>
+      <div class="col-md-4 text-md-end mt-3 mt-md-0">
+        <a href="/form" class="btn btn-earth-primary">
+          <i class="fa-solid fa-plus me-1"></i> Tambah Barang Baru
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-5">
+  <!-- Statistics Row -->
+  <div class="row g-4 mb-5">
+    <!-- Stat 1: Total Barang -->
+    <div class="col-sm-6 col-lg-3">
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-total">
+          <i class="fa-solid fa-box"></i>
+        </div>
+        <div class="stat-details">
+          <h3><%= stats.totalItems %></h3>
+          <p>Total Barang</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Stat 2: Jenis Kategori -->
+    <div class="col-sm-6 col-lg-3">
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-types">
+          <i class="fa-solid fa-tags"></i>
+        </div>
+        <div class="stat-details">
+          <h3><%= stats.totalTypes %></h3>
+          <p>Model / Nama</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stat 3: Kondisi Baik -->
+    <div class="col-sm-6 col-lg-3">
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-good">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div class="stat-details">
+          <h3><%= stats.goodCondition %></h3>
+          <p>Kondisi Baik</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stat 4: Kondisi Rusak -->
+    <div class="col-sm-6 col-lg-3">
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-bad">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </div>
+        <div class="stat-details">
+          <h3><%= stats.badCondition %></h3>
+          <p>Kondisi Rusak</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Left: Kategori Breakdown & Quick Actions -->
+    <div class="col-lg-5">
+      <div class="card card-earth mb-4">
+        <div class="card-earth-header">
+          <i class="fa-solid fa-chart-simple me-2"></i>Kategori Barang
+        </div>
+        <div class="card-body p-4">
+          <% if (Object.keys(stats.categories).length === 0) { %>
+            <p class="text-muted text-center py-4 mb-0">Belum ada kategori terdaftar.</p>
+          <% } else { %>
+            <ul class="list-group list-group-flush">
+              <% Object.entries(stats.categories).forEach(([cat, count]) => { %>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent border-0 px-0 py-2">
+                  <span><i class="fa-solid fa-folder me-2 text-muted"></i><%= cat %></span>
+                  <span class="badge bg-secondary rounded-pill"><%= count %> jenis</span>
+                </li>
+              <% }) %>
+            </ul>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="card card-earth">
+        <div class="card-earth-header">
+          <i class="fa-solid fa-circle-info me-2"></i>Tentang GudangKu
+        </div>
+        <div class="card-body p-4">
+          <p class="mb-0 text-muted" style="line-height: 1.6;">
+            Aplikasi <strong>GudangKu</strong> dirancang untuk membantu Anda memantau ketersediaan barang di gudang rumah secara terstruktur. Menggunakan format data JSON yang responsif serta DataTable interaktif untuk mempermudah pencarian barang secara cepat.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Recent Activity -->
+    <div class="col-lg-7">
+      <div class="card card-earth h-100">
+        <div class="card-earth-header d-flex justify-content-between align-items-center">
+          <span><i class="fa-solid fa-clock-rotate-left me-2"></i>Barang Terbaru Ditambahkan</span>
+          <a href="/table" class="btn btn-sm btn-earth-secondary py-1 px-2" style="font-size: 0.8rem;">
+            Lihat Semua <i class="fa-solid fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+        <div class="card-body p-4">
+          <% if (recentItems.length === 0) { %>
+            <div class="text-center py-5 text-muted">
+              <i class="fa-solid fa-box-open fa-3x mb-3 text-opacity-25"></i>
+              <p>Belum ada data barang tersedia.</p>
+            </div>
+          <% } else { %>
+            <div class="table-responsive">
+              <table class="table table-hover align-middle">
+                <thead>
+                  <tr class="text-muted" style="font-size: 0.85rem;">
+                    <th>Nama Barang</th>
+                    <th>Kategori</th>
+                    <th>Stok</th>
+                    <th>Kondisi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% recentItems.forEach(item => { %>
+                    <tr>
+                      <td>
+                        <strong class="text-dark"><%= item.name %></strong>
+                        <div class="text-muted" style="font-size: 0.75rem;"><%= item.location %></div>
+                      </td>
+                      <td><span class="text-muted"><%= item.category %></span></td>
+                      <td><%= item.quantity %></td>
+                      <td>
+                        <span class="<%= item.condition === 'Baik' ? 'badge-good' : 'badge-bad' %>">
+                          <%= item.condition %>
+                        </span>
+                      </td>
+                    </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

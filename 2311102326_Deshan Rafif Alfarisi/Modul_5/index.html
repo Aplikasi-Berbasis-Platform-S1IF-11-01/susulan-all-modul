@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramadhan Kareem 1447H - Mubarak Celebration</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom emerald variables and minimal tweaks to make Bootstrap look premium */
+        :root {
+            --emerald-primary: #047857;
+            --emerald-dark: #064e3b;
+            --emerald-light: #34d399;
+            --emerald-bg: #022c22;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f0fdf4;
+            color: #0f291e;
+            overflow-x: hidden;
+        }
+
+        .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Glassmorphism card standardizing Bootstrap classes */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(4, 120, 87, 0.15);
+            border-radius: 1rem;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(4, 120, 87, 0.1) !important;
+        }
+
+        /* Customize scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f0fdf4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--emerald-primary);
+            border-radius: 4px;
+        }
+
+        /* Custom hero overlay gradient */
+        .hero-section {
+            background: linear-gradient(135deg, var(--emerald-bg) 0%, var(--emerald-dark) 50%, var(--emerald-primary) 100%);
+            color: #f0fdf4;
+            position: relative;
+            overflow: hidden;
+            border-bottom-left-radius: 3rem;
+            border-bottom-right-radius: 3rem;
+        }
+
+        /* Islamic patterns using lightweight SVGs */
+        .islamic-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.07;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath d='M40 0l10 30h30L55 50l15 30-30-20-30 20 15-30L0 30h30z' fill='%23ffffff' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        /* Interactive widgets styling */
+        .prayer-active {
+            border-left: 5px solid var(--emerald-light) !important;
+            background-color: rgba(4, 120, 87, 0.1) !important;
+        }
+
+        /* Pojok THR & Custom Animations */
+        .floating-thr-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1050;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            box-shadow: 0 10px 25px rgba(217, 119, 6, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: floatAnim 3s ease-in-out infinite, pulseGlow 2s infinite;
+        }
+        .floating-thr-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+        .floating-thr-btn i {
+            font-size: 1.8rem;
+        }
+        @keyframes floatAnim {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(217, 119, 6, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); }
+        }
+
+        /* Glassmorphism Modal */
+        .thr-modal-content {
+            background: rgba(2, 44, 34, 0.85) !important;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(251, 191, 36, 0.3) !important;
+            border-radius: 2rem !important;
+            overflow: hidden;
+        }
+
+        /* Interactive Envelope styling */
+        .envelope-wrapper {
+            position: relative;
+            width: 280px;
+            height: 180px;
+            background-color: #d97706;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            margin: 60px auto 30px auto;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .envelope-wrapper:hover {
+            transform: translateY(-5px);
+        }
+        /* Top flap of envelope */
+        .envelope-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 140px solid transparent;
+            border-right: 140px solid transparent;
+            border-bottom: 90px solid #b45309;
+            transform-origin: bottom;
+            transform: translateY(-90px);
+            transition: transform 0.4s 0.2s ease-in-out, z-index 0.2s 0.2s;
+            z-index: 3;
+        }
+        .envelope-wrapper.open::before {
+            transform: translateY(-90px) rotateX(180deg);
+            z-index: 1;
+        }
+        .envelope-left {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 140px solid #fbbf24;
+            border-top: 90px solid transparent;
+            border-bottom: 90px solid #fbbf24;
+            border-radius: 0 0 0 15px;
+            z-index: 4;
+        }
+        .envelope-right {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-right: 140px solid #f59e0b;
+            border-top: 90px solid transparent;
+            border-bottom: 90px solid #f59e0b;
+            border-radius: 0 0 15px 0;
+            z-index: 4;
+        }
+        .envelope-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 90px;
+            background: #d97706;
+            clip-path: polygon(0 100%, 50% 0, 100% 100%);
+            border-radius: 0 0 15px 15px;
+            z-index: 4;
+        }
+        .envelope-letter {
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+            width: 250px;
+            height: 140px;
+            background-color: #fff;
+            border-radius: 10px;
+            z-index: 2;
+            transition: transform 0.5s ease-in-out, height 0.5s;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .envelope-wrapper.open .envelope-letter {
+            transform: translateY(-80px);
+            height: 160px;
+            z-index: 5;
+        }
+        .envelope-seal {
+            position: absolute;
+            top: 50%;
+            left: calc(50% - 25px);
+            margin-top: -35px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #047857 0%, #064e3b 100%);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fbbf24;
+            font-size: 1.2rem;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .envelope-wrapper.open .envelope-seal {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        /* Gold Reward Card Styling */
+        .thr-reward-card {
+            background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+            border: 2px solid #fbbf24;
+            border-radius: 1.5rem;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 15px 35px rgba(4, 120, 87, 0.4);
+            transform: scale(0.7);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .thr-reward-card.show {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .thr-amount {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #fbbf24;
+            text-shadow: 0 2px 10px rgba(251, 191, 36, 0.4);
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero / Header Section -->
+    <header class="hero-section py-5 px-3 px-md-5 text-center shadow-lg">
+        <div class="islamic-pattern"></div>
+        
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent mb-4">
+            <div class="container-fluid">
+                <a class="navbar-brand font-cinzel fs-3 fw-bold text-white tracking-widest" href="#">
+                    <i class="bi bi-moon-stars-fill text-warning me-2"></i>RAMADHAN
+                </a>
+                <div class="ms-auto d-flex align-items-center">
+                    <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fs-7">
+                        <i class="bi bi-calendar-event me-1"></i> 1447 H / 2026 M
+                    </span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Hero Intro -->
+        <div class="container py-4">
+            <div class="row align-items-center">
+                <div class="col-lg-7 text-lg-start text-center mb-4 mb-lg-0">
+                    <h1 class="display-3 font-cinzel fw-black mb-3">
+                        Selamat Menunaikan <br>
+                        <span class="text-warning">Ibadah Puasa</span>
+                    </h1>
+                    <p class="lead mb-4 opacity-90 text-light">
+                        Marhaban ya Ramadhan. Bulan penuh berkah, rahmah, dan ampunan telah tiba. Mari kita bersihkan hati dan tingkatkan ketakwaan di bulan yang suci ini.
+                    </p>
+                    <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start">
+                        <a href="#jadwal" class="btn btn-warning btn-lg px-4 rounded-pill shadow-sm fw-bold">
+                            <i class="bi bi-clock-history me-2"></i>Jadwal Sholat & Imsakiyah
+                        </a>
+                        <a href="#ucapan" class="btn btn-outline-light btn-lg px-4 rounded-pill">
+                            <i class="bi bi-envelope-heart me-2"></i>Kirim Ucapan
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-5 text-center position-relative">
+                    <!-- Mosque Icon / Illustration container using bootstrap classes -->
+                    <div class="p-5 bg-white bg-opacity-10 rounded-circle d-inline-block shadow-lg border border-white border-opacity-25 animate-bounce">
+                        <i class="bi bi-moon-stars text-warning display-1 d-block mb-3"></i>
+                        <span class="d-block font-cinzel fs-4 text-white">1447 H</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Countdown Timer -->
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="bg-black bg-opacity-25 border border-white border-opacity-10 rounded-4 p-4 shadow-sm backdrop-blur">
+                        <h5 class="text-warning mb-3 fw-bold tracking-wider font-cinzel">COUNTDOWN MENUJU IFTAR (BUKA PUASA) HARI INI</h5>
+                        <div class="row text-center g-3" id="countdown-timer">
+                            <div class="col-3">
+                                <div class="p-3 bg-dark bg-opacity-50 rounded shadow-sm">
+                                    <div class="fs-1 fw-bold text-white" id="hours">00</div>
+                                    <div class="text-uppercase text-light opacity-75 fs-7">Jam</div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="p-3 bg-dark bg-opacity-50 rounded shadow-sm">
+                                    <div class="fs-1 fw-bold text-white" id="minutes">00</div>
+                                    <div class="text-uppercase text-light opacity-75 fs-7">Menit</div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="p-3 bg-dark bg-opacity-50 rounded shadow-sm">
+                                    <div class="fs-1 fw-bold text-white" id="seconds">00</div>
+                                    <div class="text-uppercase text-light opacity-75 fs-7">Detik</div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="p-3 bg-success rounded shadow-sm d-flex flex-column justify-content-center align-items-center">
+                                    <i class="bi bi-cup-straw text-white fs-2 mb-1"></i>
+                                    <div class="text-uppercase text-white fw-bold fs-7" id="iftar-time">17:58</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="container py-5">
+        
+        <!-- Greeting Card Creator Section -->
+        <section id="ucapan" class="mb-5 py-4">
+            <div class="text-center mb-5">
+                <span class="badge bg-success text-white px-3 py-2 rounded-pill mb-2 font-cinzel fs-6">KARTU UCAPAN</span>
+                <h2 class="fw-bold font-cinzel">Buat Kartu Ucapan Ramadhan</h2>
+                <p class="text-muted">Tulis pesan kebaikan dan bagikan kepada orang-orang terkasih.</p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Creator Form -->
+                <div class="col-md-5">
+                    <div class="card glass-card p-4 border-0 shadow-sm">
+                        <h4 class="mb-3 fw-bold text-success font-cinzel"><i class="bi bi-pencil-square me-2"></i>Kustomisasi</h4>
+                        <div class="mb-3">
+                            <label for="inputName" class="form-label fw-semibold">Nama Pengirim</label>
+                            <input type="text" class="form-control border-success-subtle" id="inputName" placeholder="Masukkan nama Anda" value="Deshan Rafif Alfarisi">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputMessage" class="form-label fw-semibold">Pesan Ramadhan</label>
+                            <textarea class="form-control border-success-subtle" id="inputMessage" rows="4" placeholder="Tuliskan ucapan atau doa tulus Anda...">Semoga Ramadhan kali ini membawa kedamaian, keberkahan, dan ampunan bagi kita semua. Selamat menunaikan ibadah puasa 1447 H!</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Warna Tema Kartu</label>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-success border-3 border-dark rounded-circle p-3 theme-color-btn active" data-color="#047857" style="background-color: #047857;"></button>
+                                <button type="button" class="btn rounded-circle p-3 theme-color-btn" data-color="#064e3b" style="background-color: #064e3b;"></button>
+                                <button type="button" class="btn rounded-circle p-3 theme-color-btn" data-color="#111827" style="background-color: #111827;"></button>
+                                <button type="button" class="btn rounded-circle p-3 theme-color-btn" data-color="#b45309" style="background-color: #b45309;"></button>
+                            </div>
+                        </div>
+                        <button type="button" id="btnDownload" class="btn btn-success w-100 py-2.5 rounded-3 fw-bold">
+                            <i class="bi bi-download me-2"></i>Unduh Kartu Ucapan
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Preview Area -->
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-lg text-white overflow-hidden rounded-4 position-relative" id="greetingCard" style="background: linear-gradient(135deg, #047857 0%, #064e3b 100%); min-height: 380px;">
+                        <div class="islamic-pattern"></div>
+                        <div class="card-body d-flex flex-column justify-content-between p-5 text-center z-1">
+                            <div>
+                                <i class="bi bi-moon-stars text-warning fs-1"></i>
+                                <h3 class="font-cinzel text-warning mt-2 tracking-widest fw-bold">RAMADHAN KAREEM</h3>
+                            </div>
+                            <div class="my-4">
+                                <p class="lead italic text-light" id="previewMessage" style="font-size: 1.1rem; line-height: 1.6;">
+                                    "Semoga Ramadhan kali ini membawa kedamaian, keberkahan, dan ampunan bagi kita semua. Selamat menunaikan ibadah puasa 1447 H!"
+                                </p>
+                            </div>
+                            <div>
+                                <hr class="border-warning opacity-50 w-25 mx-auto">
+                                <p class="mb-0 text-uppercase tracking-wider fw-bold text-warning" id="previewSender">Deshan Rafif Alfarisi</p>
+                                <small class="text-white-50">Mengucapkan Selamat Berpuasa</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prayer Schedule Section -->
+        <section id="jadwal" class="mb-5 py-4">
+            <div class="text-center mb-5">
+                <span class="badge bg-success text-white px-3 py-2 rounded-pill mb-2 font-cinzel fs-6">IMSABIYAH & SHOLAT</span>
+                <h2 class="fw-bold font-cinzel">Jadwal Sholat Hari Ini</h2>
+                <p class="text-muted">Zona Waktu: Jakarta & Sekitarnya (WIB)</p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="card glass-card border-0 shadow-sm p-4">
+                        <div class="row row-cols-2 row-cols-md-5 g-3 text-center" id="prayerTimesContainer">
+                            <div class="col">
+                                <div class="p-3 border rounded-3 bg-light transition-all" id="time-subuh">
+                                    <h6 class="text-muted mb-1 text-uppercase fw-semibold">Subuh</h6>
+                                    <h3 class="fw-bold text-success font-cinzel mb-0">04:35</h3>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="p-3 border rounded-3 bg-light transition-all" id="time-dzuhur">
+                                    <h6 class="text-muted mb-1 text-uppercase fw-semibold">Dzuhur</h6>
+                                    <h3 class="fw-bold text-success font-cinzel mb-0">11:52</h3>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="p-3 border rounded-3 bg-light transition-all" id="time-ashar">
+                                    <h6 class="text-muted mb-1 text-uppercase fw-semibold">Ashar</h6>
+                                    <h3 class="fw-bold text-success font-cinzel mb-0">15:12</h3>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="p-3 border rounded-3 bg-light transition-all" id="time-maghrib">
+                                    <h6 class="text-muted mb-1 text-uppercase fw-semibold">Maghrib</h6>
+                                    <h3 class="fw-bold text-success font-cinzel mb-0">17:58</h3>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="p-3 border rounded-3 bg-light transition-all" id="time-isya">
+                                    <h6 class="text-muted mb-1 text-uppercase fw-semibold">Isya</h6>
+                                    <h3 class="fw-bold text-success font-cinzel mb-0">19:10</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ramadan Daily Planner / Checklist -->
+        <section id="tracker" class="mb-5 py-4">
+            <div class="text-center mb-5">
+                <span class="badge bg-success text-white px-3 py-2 rounded-pill mb-2 font-cinzel fs-6">TRACKER</span>
+                <h2 class="fw-bold font-cinzel">Amalan Harian Ramadhan</h2>
+                <p class="text-muted">Pantau ibadah harian Anda untuk memaksimalkan keberkahan bulan Ramadhan.</p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card glass-card border-0 shadow-sm p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-bold font-cinzel text-success mb-0">
+                                <i class="bi bi-check2-all me-2"></i>Capaian Hari Ini
+                            </h5>
+                            <span class="badge bg-success px-3 py-2 rounded-pill" id="progress-text">0% Selesai</span>
+                        </div>
+                        
+                        <div class="progress mb-4" style="height: 10px;">
+                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" id="progress-bar"></div>
+                        </div>
+
+                        <ul class="list-group list-group-flush" id="checklist">
+                            <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent py-3">
+                                <div class="form-check">
+                                    <input class="form-check-input border-success-subtle p-2" type="checkbox" id="check1" checked>
+                                    <label class="form-check-label ms-2 fw-semibold" for="check1">Makan Sahur Tepat Waktu</label>
+                                </div>
+                                <span class="badge bg-success-subtle text-success rounded-pill px-3 py-1">Sahur</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent py-3">
+                                <div class="form-check">
+                                    <input class="form-check-input border-success-subtle p-2" type="checkbox" id="check2">
+                                    <label class="form-check-label ms-2 fw-semibold" for="check2">Sholat 5 Waktu Berjamaah</label>
+                                </div>
+                                <span class="badge bg-success-subtle text-success rounded-pill px-3 py-1">Sholat</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent py-3">
+                                <div class="form-check">
+                                    <input class="form-check-input border-success-subtle p-2" type="checkbox" id="check3">
+                                    <label class="form-check-label ms-2 fw-semibold" for="check3">Membaca Al-Qur'an (Tadarus)</label>
+                                </div>
+                                <span class="badge bg-success-subtle text-success rounded-pill px-3 py-1">Al-Qur'an</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent py-3">
+                                <div class="form-check">
+                                    <input class="form-check-input border-success-subtle p-2" type="checkbox" id="check4">
+                                    <label class="form-check-label ms-2 fw-semibold" for="check4">Sholat Tarawih & Witir</label>
+                                </div>
+                                <span class="badge bg-success-subtle text-success rounded-pill px-3 py-1">Tarawih</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent py-3">
+                                <div class="form-check">
+                                    <input class="form-check-input border-success-subtle p-2" type="checkbox" id="check5">
+                                    <label class="form-check-label ms-2 fw-semibold" for="check5">Sedekah / Berbagi Kebaikan</label>
+                                </div>
+                                <span class="badge bg-success-subtle text-success rounded-pill px-3 py-1">Infaq</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pojok THR Section -->
+        <section id="thr-section" class="mb-5 py-4">
+            <div class="text-center mb-5">
+                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill mb-2 font-cinzel fs-6 fw-bold">BERKAH RAMADHAN</span>
+                <h2 class="fw-bold font-cinzel text-emerald-dark">Bagi-Bagi THR Kareem</h2>
+                <p class="text-muted">Ketuk tombol di bawah atau tombol melayang di pojok kanan bawah untuk mengklaim amplop THR interaktif Anda!</p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <div class="card glass-card border-0 shadow-sm p-5 text-center position-relative overflow-hidden">
+                        <div class="islamic-pattern"></div>
+                        <div class="position-relative z-1">
+                            <i class="bi bi-gift text-warning display-3 d-block mb-3 animate-bounce" style="animation-duration: 2s;"></i>
+                            <h4 class="fw-bold text-success font-cinzel mb-3">Meriahkan Ramadhan dengan THR</h4>
+                            <p class="text-muted mb-4">Sudahkah Anda mendapatkan THR keberkahan tahun ini? Klik tombol di bawah untuk membuka amplop keberuntungan Anda.</p>
+                            <button type="button" class="btn btn-warning btn-lg px-5 rounded-pill shadow fw-bold text-dark btn-klaim-thr">
+                                <i class="bi bi-envelope-paper-heart me-2"></i>Klaim THR Sekarang
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5 mt-5 border-top border-success border-3">
+        <div class="container text-center">
+            <div class="mb-4">
+                <i class="bi bi-moon-stars-fill text-warning fs-1"></i>
+                <h4 class="font-cinzel text-warning mt-2 fw-bold tracking-widest">RAMADHAN KAREEM 1447H</h4>
+                <p class="text-white-50 small">Semoga keberkahan melimpahi kita semua di bulan suci ini.</p>
+            </div>
+            
+            <hr class="border-secondary my-4 w-50 mx-auto">
+            
+            <!-- Sender Information / Student Identity -->
+            <div class="my-4">
+                <div class="d-inline-block p-4 rounded-4 bg-success bg-opacity-10 border border-success border-opacity-25 shadow-sm text-start" style="max-width: 450px;">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-success text-white rounded-circle p-2.5 me-3">
+                            <i class="bi bi-person-fill fs-5"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 text-white fw-bold">Deshan Rafif Alfarisi</h6>
+                            <small class="text-success fw-semibold">Pemberi Ucapan & Kreator Halaman</small>
+                        </div>
+                    </div>
+                    <div class="row g-2 border-top border-secondary border-opacity-25 pt-2 text-white-50 fs-7">
+                        <div class="col-6">
+                            <span class="text-warning fw-semibold">NIM:</span> 2311102326
+                        </div>
+                        <div class="col-6 text-end">
+                            <span class="text-warning fw-semibold">Kelas:</span> IF-11-01
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="mb-0 text-white-50 fs-7">&copy; 2026 Modul 5 JavaScript. Dibuat dengan penuh ketulusan.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 Bundle JS with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- html2canvas for card export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- canvas-confetti for festive celebrations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+    <!-- THR Modal -->
+    <div class="modal fade" id="thrModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="thrModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content thr-modal-content text-white shadow-lg">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" id="btnCloseThrModal"></button>
+                </div>
+                <div class="modal-body text-center pt-0 px-4 pb-5">
+                    <div id="envelope-container">
+                        <h4 class="font-cinzel text-warning fw-bold mb-1">AMPLOP THR RAMADHAN</h4>
+                        <p class="text-white-50 small mb-4">Klik/Sentuh amplop emas di bawah untuk membukanya!</p>
+                        
+                        <div class="envelope-wrapper" id="thrEnvelope">
+                            <div class="envelope-seal">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class="envelope-letter">
+                                <span class="badge bg-success-subtle text-success mb-2">THR 1447H</span>
+                                <h6 class="text-dark fw-bold mb-0">Klik Untuk Buka</h6>
+                            </div>
+                            <div class="envelope-left"></div>
+                            <div class="envelope-right"></div>
+                            <div class="envelope-bottom"></div>
+                        </div>
+                    </div>
+
+                    <div id="reward-container" class="d-none">
+                        <div class="thr-reward-card animate__animated animate__zoomIn" id="thrRewardCard">
+                            <i class="bi bi-check-circle-fill text-warning display-4 mb-3 d-block"></i>
+                            <h3 class="font-cinzel text-white fw-bold mb-2">Selamat!</h3>
+                            <p class="text-white-50 mb-3">Anda mendapatkan THR Keberkahan Ramadhan 1447 H</p>
+                            
+                            <div class="bg-black bg-opacity-30 p-3 rounded-3 mb-4 border border-warning border-opacity-20">
+                                <small class="text-warning text-uppercase fw-bold tracking-widest d-block mb-1">Nominal THR Anda</small>
+                                <span class="thr-amount" id="thrAmountText">Rp 0</span>
+                            </div>
+
+                            <p class="small text-light text-opacity-75 italic mb-4">
+                                "Semoga keberkahan Ramadhan senantiasa menyertai langkah dan ibadah kita."
+                            </p>
+
+                            <button type="button" class="btn btn-warning text-dark fw-bold rounded-pill px-4 py-2 w-100" data-bs-dismiss="modal">
+                                <i class="bi bi-hand-thumbs-up-fill me-1"></i> Alhamdulillah, Terima Kasih!
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating THR Button -->
+    <div class="floating-thr-btn btn-klaim-thr" title="Klaim THR Ramadhan">
+        <i class="bi bi-gift-fill"></i>
+    </div>
+
+    <script>
+        // Custom Greeting Card Interactivity
+        const inputName = document.getElementById('inputName');
+        const inputMessage = document.getElementById('inputMessage');
+        const previewSender = document.getElementById('previewSender');
+        const previewMessage = document.getElementById('previewMessage');
+        const greetingCard = document.getElementById('greetingCard');
+        const themeBtns = document.querySelectorAll('.theme-color-btn');
+
+        // Dynamic Text Syncing
+        inputName.addEventListener('input', (e) => {
+            previewSender.textContent = e.target.value || 'Nama Pengirim';
+        });
+
+        inputMessage.addEventListener('input', (e) => {
+            previewMessage.textContent = e.target.value ? `"${e.target.value}"` : '"Tuliskan ucapan atau doa tulus Anda..."';
+        });
+
+        // Theme Switching
+        themeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                themeBtns.forEach(b => b.classList.remove('active', 'border-3', 'border-dark'));
+                btn.classList.add('active', 'border-3', 'border-dark');
+                const color = btn.getAttribute('data-color');
+                
+                // Set theme color
+                greetingCard.style.background = `linear-gradient(135deg, ${color} 0%, #000000 100%)`;
+            });
+        });
+
+        // Greeting Card Download functionality using html2canvas
+        document.getElementById('btnDownload').addEventListener('click', () => {
+            html2canvas(greetingCard, {
+                useCORS: true,
+                scale: 2 // Higher resolution output
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'ucapan_ramadhan_deshan.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        });
+
+        // Countdown Timer Logic
+        function updateCountdown() {
+            const now = new Date();
+            
+            // Set targets for today's Iftar (17:58 WIB)
+            const target = new Date();
+            target.setHours(17, 58, 0, 0);
+            
+            let diff = target - now;
+            
+            // If already past Iftar time, show countdown for tomorrow
+            if (diff < 0) {
+                target.setDate(target.getDate() + 1);
+                diff = target - now;
+            }
+            
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Prayer Schedule - Highlight Active Hour
+        function checkActivePrayer() {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const currentMin = now.getMinutes();
+            const currentTimeStr = `${String(currentHour).padStart(2, '0')}:${String(currentMin).padStart(2, '0')}`;
+            
+            // Times mapping
+            const prayers = [
+                { id: 'time-subuh', time: '04:35', name: 'Subuh' },
+                { id: 'time-dzuhur', time: '11:52', name: 'Dzuhur' },
+                { id: 'time-ashar', time: '15:12', name: 'Ashar' },
+                { id: 'time-maghrib', time: '17:58', name: 'Maghrib' },
+                { id: 'time-isya', time: '19:10', name: 'Isya' }
+            ];
+
+            // Reset classes
+            prayers.forEach(p => {
+                document.getElementById(p.id).classList.remove('prayer-active', 'border-success', 'shadow-sm');
+                document.getElementById(p.id).classList.add('bg-light');
+            });
+
+            // Find current active slot
+            for (let i = 0; i < prayers.length; i++) {
+                const pTime = prayers[i].time;
+                const nextTime = prayers[(i + 1) % prayers.length].time;
+                
+                // Simple comparison logic
+                if (i === prayers.length - 1 || (currentTimeStr >= pTime && currentTimeStr < nextTime)) {
+                    const activeEl = document.getElementById(prayers[i].id);
+                    activeEl.classList.add('prayer-active', 'border-success', 'shadow-sm');
+                    activeEl.classList.remove('bg-light');
+                    break;
+                }
+            }
+        }
+        
+        checkActivePrayer();
+        setInterval(checkActivePrayer, 60000); // Check every minute
+
+        // Daily Tracker Checklist
+        const checkboxes = document.querySelectorAll('#checklist input[type="checkbox"]');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+
+        function updateProgress() {
+            const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const percentage = Math.round((checkedCount / checkboxes.length) * 100);
+            
+            progressBar.style.width = `${percentage}%`;
+            progressText.textContent = `${percentage}% Selesai`;
+        }
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', updateProgress);
+        });
+
+        // Initialize progress
+        updateProgress();
+
+        // Audio chime synthesis for premium feedback
+        function playChime() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Melodic sound sequence
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+                notes.forEach((freq, idx) => {
+                    setTimeout(() => {
+                        let osc = ctx.createOscillator();
+                        let gain = ctx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+                        
+                        gain.gain.setValueAtTime(0, ctx.currentTime);
+                        gain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.05);
+                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
+                        
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start();
+                        osc.stop(ctx.currentTime + 0.8);
+                    }, idx * 150);
+                });
+            } catch(e) {
+                console.log("AudioContext blocked or not supported", e);
+            }
+        }
+
+        // THR Interactive Modal Logic
+        const thrModalEl = document.getElementById('thrModal');
+        const thrModal = new bootstrap.Modal(thrModalEl);
+        const thrEnvelope = document.getElementById('thrEnvelope');
+        const envelopeContainer = document.getElementById('envelope-container');
+        const rewardContainer = document.getElementById('reward-container');
+        const thrRewardCard = document.getElementById('thrRewardCard');
+        const thrAmountText = document.getElementById('thrAmountText');
+        let envelopeOpened = false;
+
+        // Hook trigger buttons (both floating & section buttons)
+        document.querySelectorAll('.btn-klaim-thr').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Reset state before showing
+                envelopeOpened = false;
+                thrEnvelope.classList.remove('open');
+                envelopeContainer.classList.remove('d-none');
+                rewardContainer.classList.add('d-none');
+                thrRewardCard.classList.remove('show');
+                thrAmountText.textContent = "Rp 0";
+                
+                thrModal.show();
+            });
+        });
+
+        // Click to open envelope
+        thrEnvelope.addEventListener('click', () => {
+            if (envelopeOpened) return;
+            envelopeOpened = true;
+            
+            // Add open animation class
+            thrEnvelope.classList.add('open');
+            playChime();
+
+            // Fireworks/Confetti bursts
+            const duration = 2 * 1000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                // Confetti left & right
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#fbbf24', '#f59e0b', '#047857', '#34d399']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#fbbf24', '#f59e0b', '#047857', '#34d399']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+
+            // Central blast
+            confetti({
+                particleCount: 80,
+                spread: 80,
+                origin: { y: 0.6 },
+                colors: ['#fbbf24', '#f59e0b', '#047857', '#d97706', '#ffffff']
+            });
+
+            // Transition to reward card after animation
+            setTimeout(() => {
+                envelopeContainer.classList.add('d-none');
+                rewardContainer.classList.remove('d-none');
+                
+                // Scale in reward card
+                setTimeout(() => {
+                    thrRewardCard.classList.add('show');
+                    
+                    // Animate THR text counter from 0 to Rp 200.000
+                    const targetAmount = 200000;
+                    let currentAmount = 0;
+                    const steps = 30;
+                    const stepValue = targetAmount / steps;
+                    let step = 0;
+
+                    const interval = setInterval(() => {
+                        step++;
+                        currentAmount = Math.round(stepValue * step);
+                        if (step >= steps) {
+                            currentAmount = targetAmount;
+                            clearInterval(interval);
+                        }
+                        // Format as IDR currency
+                        thrAmountText.textContent = new Intl.NumberFormat('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR',
+                            minimumFractionDigits: 0
+                        }).format(currentAmount);
+                    }, 30);
+                }, 50);
+            }, 1200);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar', { hasLogo: true }) %>
+
+<div class="page-header">
+  <div class="container">
+    <h1><%= editItem ? 'Edit Barang' : 'Tambah Barang Baru' %></h1>
+    <p><%= editItem ? 'Perbarui detail informasi barang gudang di bawah ini.' : 'Masukkan barang baru ke dalam sistem inventaris gudang rumah.' %></p>
+  </div>
+</div>
+
+<div class="container mb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card card-earth">
+        <div class="card-earth-header">
+          <i class="fa-solid <%= editItem ? 'fa-pen-to-square' : 'fa-circle-plus' %> me-2"></i>
+          Formulir Informasi Barang
+        </div>
+        <div class="card-body p-4 p-md-5">
+          <form id="inventoryForm" class="needs-validation" novalidate>
+            <!-- Hidden ID field if editing -->
+            <% if (editItem) { %>
+              <input type="hidden" id="itemId" name="id" value="<%= editItem.id %>">
+            <% } %>
+
+            <!-- Row 1: Nama Barang -->
+            <div class="mb-4">
+              <label for="name" class="form-label form-label-earth">Nama Barang <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-earth" id="name" name="name" 
+                     placeholder="Contoh: Tang Kombinasi, Kipas Angin, dll." 
+                     value="<%= editItem ? editItem.name : '' %>" required>
+              <div class="invalid-feedback">
+                Silakan masukkan nama barang.
+              </div>
+            </div>
+
+            <!-- Row 2: Kategori & Jumlah -->
+            <div class="row mb-4">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <label for="category" class="form-label form-label-earth">Kategori <span class="text-danger">*</span></label>
+                <select class="form-select form-select-earth" id="category" name="category" required>
+                  <option value="" disabled <%= !editItem ? 'selected' : '' %>>Pilih Kategori...</option>
+                  <% const categories = ['Elektronik', 'Perkakas', 'Dekorasi', 'Peralatan Dapur', 'Pakaian', 'Lain-lain']; %>
+                  <% categories.forEach(cat => { %>
+                    <option value="<%= cat %>" <%= editItem && editItem.category === cat ? 'selected' : '' %>><%= cat %></option>
+                  <% }) %>
+                </select>
+                <div class="invalid-feedback">
+                  Silakan pilih kategori barang.
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <label for="quantity" class="form-label form-label-earth">Jumlah / Stok <span class="text-danger">*</span></label>
+                <input type="number" class="form-control form-control-earth" id="quantity" name="quantity" 
+                       min="1" placeholder="Masukkan jumlah unit" 
+                       value="<%= editItem ? editItem.quantity : '1' %>" required>
+                <div class="invalid-feedback">
+                  Silakan masukkan jumlah stok barang (minimal 1).
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 3: Kondisi Barang -->
+            <div class="mb-4">
+              <label class="form-label form-label-earth d-block">Kondisi Barang <span class="text-danger">*</span></label>
+              <div class="form-check form-check-inline mt-1">
+                <input class="form-check-input" type="radio" name="condition" id="conditionBaik" value="Baik" 
+                       <%= (!editItem || editItem.condition === 'Baik') ? 'checked' : '' %>>
+                <label class="form-check-label" for="conditionBaik">
+                  <span class="badge-good"><i class="fa-solid fa-circle-check me-1"></i>Baik</span>
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="condition" id="conditionRusak" value="Rusak"
+                       <%= (editItem && editItem.condition === 'Rusak') ? 'checked' : '' %>>
+                <label class="form-check-label" for="conditionRusak">
+                  <span class="badge-bad"><i class="fa-solid fa-circle-xmark me-1"></i>Rusak</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Row 4: Lokasi Penyimpanan -->
+            <div class="mb-4">
+              <label for="location" class="form-label form-label-earth">Lokasi Penyimpanan</label>
+              <input type="text" class="form-control form-control-earth" id="location" name="location" 
+                     placeholder="Contoh: Rak A-2, Box Plastik Biru, Lemari Belakang" 
+                     value="<%= editItem ? editItem.location : '' %>">
+              <small class="text-muted">Tulis spesifik lokasi agar mempermudah pencarian.</small>
+            </div>
+
+            <!-- Row 5: Catatan -->
+            <div class="mb-5">
+              <label for="notes" class="form-label form-label-earth">Catatan Tambahan</label>
+              <textarea class="form-control form-control-earth" id="notes" name="notes" rows="3" 
+                        placeholder="Contoh: Merek barang, kelengkapan, dll."><%= editItem ? editItem.notes : '' %></textarea>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-end gap-3">
+              <a href="/table" class="btn btn-earth-secondary">
+                <i class="fa-solid fa-xmark me-1"></i> Batal
+              </a>
+              <button type="submit" class="btn btn-earth-primary" id="btnSubmitForm">
+                <i class="fa-solid fa-floppy-disk me-1"></i> Simpan Barang
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
