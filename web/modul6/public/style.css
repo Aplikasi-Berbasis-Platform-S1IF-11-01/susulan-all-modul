@@ -1,0 +1,26 @@
+body {
+    background-color: #f5f6f8;
+}
+
+.card {
+    border: 1px solid #e5e7eb;
+    box-shadow: none;
+}
+
+.navbar-brand {
+    color: #2563eb !important;
+}
+
+.btn-primary {
+    background-color: #2563eb;
+    border-color: #2563eb;
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
+}
+
+table.dataTable {
+    font-size: 0.95rem;
+}
