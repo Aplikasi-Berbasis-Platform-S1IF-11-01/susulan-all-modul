@@ -85,3 +85,8 @@ Aplikasi yang dibuat adalah **Sistem Data Mahasiswa**, yaitu aplikasi sederhana 
 - Preview data sebelum ditambahkan ke daftar
 - Navigasi antar halaman menggunakan Navigator
 - Pengiriman data menggunakan `Navigator.pop()`
+
+**Hasil:**
+![Output 1](aset/output1.png)
+![Output 2](aset/output2.png)
+![Output 3](aset/output3.png)
