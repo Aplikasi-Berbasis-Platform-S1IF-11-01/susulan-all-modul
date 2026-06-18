@@ -219,15 +219,13 @@ Ada tiga hal yang perlu diperhatikan di file ini. Pertama, `main()` dijadikan `a
 
 ## 5. Hasil Uji Coba
 
-Pengujian dilakukan langsung di perangkat Android fisik (Samsung Galaxy A21 / A217F) yang dihubungkan lewat USB debugging, bukan emulator.
 
 **Kondisi awal — nilai counter masih 0:**
 
-![Counter masih 0](screenshots/SS_COUNTER_NILAI_0.jpeg)
+![Counter masih 0](SS%20COUNTER%20NILAI%200.jpeg)
 
 **Setelah tombol "+" ditekan satu kali — nilai counter naik jadi 1, dan notifikasi langsung muncul di status bar:**
-
-![Counter jadi 1, notifikasi muncul](screenshots/SS_COUNTER_NILAI_1.jpeg)
+![Counter jadi 1, notifikasi muncul](SS%20COUNTER%20NILAI%201.jpeg)
 
 Dari kedua screenshot terlihat bahwa perubahan nilai pada UI dan kemunculan notifikasi terjadi bersamaan saat tombol ditekan, sesuai dengan urutan kode pada method `increment()` di `CounterProvider`.
 
