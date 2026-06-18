@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Modul-10 AJAX</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f6f6f6;
+      margin: 0;
+      padding: 40px 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 420px;
+      margin: auto;
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid #e5e5e5;
+    }
+
+    h2 {
+      margin-bottom: 8px;
+    }
+
+    .sub {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 20px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background: #111;
+    }
+
+    #hasil-profil {
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .card {
+      border-top: 1px solid #ddd;
+      padding-top: 15px;
+    }
+
+    .item {
+      margin-bottom: 8px;
+    }
+
+    .label {
+      color: #888;
+      font-size: 13px;
+    }
+
+    .value {
+      font-weight: bold;
+    }
+
+    .loading {
+      color: #999;
+      font-style: italic;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Profil</h2>
+    <div class="sub">Data diambil dari server</div>
+
+    <button id="btn">Tampilkan Profil</button>
+
+    <div id="hasil-profil">
+      <div class="sub">Belum ada data</div>
+    </div>
+  </div>
+
+  <script>
+    const btn = document.getElementById("btn");
+    const hasil = document.getElementById("hasil-profil");
+
+    btn.addEventListener("click", function () {
+      hasil.innerHTML = '<div class="loading">mengambil data...</div>';
+
+      fetch("data.php")
+        .then(res => res.json())
+        .then(data => {
+          hasil.innerHTML = `
+            <div class="card">
+              <div class="item">
+                <div class="label">Nama</div>
+                <div class="value">${data.nama}</div>
+              </div>
+              <div class="item">
+                <div class="label">Pekerjaan</div>
+                <div class="value">${data.pekerjaan}</div>
+              </div>
+              <div class="item">
+                <div class="label">Lokasi</div>
+                <div class="value">${data.lokasi}</div>
+              </div>
+            </div>
+          `;
+        })
+        .catch(() => {
+          hasil.innerHTML = '<div class="error">gagal mengambil data</div>';
+        });
+    });
+  </script>
+
+</body>
+</html>
